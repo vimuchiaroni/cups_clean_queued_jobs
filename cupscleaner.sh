@@ -12,7 +12,7 @@
 
 #################################### VARIABLES ######################################
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
-today=`date "+%Y-%m-%d"`
+TODAY=`date "+%Y-%m-%d"`
 IFS=$'\n'
 RETENTION='3days'
 ####################################################################################
@@ -25,7 +25,7 @@ get_date() {
 #Compare the job date with todays date and cancel it if it is greater than the defined RETENTION
 for line in $(lpstat -o);do
         job_date=$(echo $line|awk '{print $5 "-" $6 "-" $7}')
-        if [[ $today > $(get_date $job_date) ]]
+        if [[ $TODAY > $(get_date $job_date) ]]
         then
                 print_job=$(echo $line|awk '{print $1}')
                 echo "canceling print job $print_job on $today. Queued since $job_date"
